@@ -283,12 +283,25 @@ def compute_psds_from_scores(
             f"PSDS_dtc{dtc_threshold}_gtc{gtc_threshold}_cttc{cttc_threshold}"
             f"_ct{alpha_ct}_st{alpha_st}_max{max_efpr}_sed_scores_eval.png"
         )
-        sed_scores_eval.utils.visualization.plot_psd_roc(
-            psd_roc,
-            filename=os.path.join(save_dir, filename),
-            dtc_threshold=dtc_threshold, gtc_threshold=gtc_threshold,
-            cttc_threshold=cttc_threshold, alpha_ct=alpha_ct,
-            alpha_st=alpha_st, unit_of_time='hour',  max_efpr=max_efpr,
-            psds=psds,
-        )
+        # TODO: lenovo-GPU throws error when calling function sed_scores_eval.utils.visualization.plot_psd_roc
+        #       psd_roc is supposed to be like example: (array([0., 0., 0., 0., 0.]), array([0., 37., 37., 88., 100]))
+        #                                           or, (array([0., 0.]), array([0., 100])), etc.
+        #       But it is instead: 
+        #       {'Alarm_bell_ringing': 0.1397615561597992, 'Blender': 0.0, 'Cat': 0.0, 'Dishes': 0.0, 'Dog': 0.0, 'Electric_shaver_toothbrush': 0.0, 'Frying': 0.0, 
+        #        'Running_water': 0.0, 'Speech': 0.0, 'Vacuum_cleaner': 0.0}
+        #       Current bandage fix is to skip the plot.
+
+        print(psd_roc)
+
+        try:
+            sed_scores_eval.utils.visualization.plot_psd_roc(
+                psd_roc,
+                filename=os.path.join(save_dir, filename),
+                dtc_threshold=dtc_threshold, gtc_threshold=gtc_threshold,
+                cttc_threshold=cttc_threshold, alpha_ct=alpha_ct,
+                alpha_st=alpha_st, unit_of_time='hour',  max_efpr=max_efpr,
+                psds=psds,
+            )
+        except Exception as e:
+            print(e)
     return psds
