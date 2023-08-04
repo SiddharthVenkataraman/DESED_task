@@ -44,7 +44,7 @@ def remove_missing_files_from_tsv(path_to_tsv, path_to_data_folder):
 
 if __name__ == '__main__':
 
-    path_to_conf_file = '/home/siddharth/PycharmProjects/DESED_task/recipes/dcase2023_task4_baseline/confs/default.yaml'
+    path_to_conf_file = 'confs/default.yaml'
     with open(path_to_conf_file, "r") as f:
         config = yaml.safe_load(f)
 
