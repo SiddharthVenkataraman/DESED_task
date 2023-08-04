@@ -156,5 +156,4 @@ dmypy.json
 .idea
 /recipes/dcase2023_task4_baseline/environment.yml
 /data/dcase/
-/recipes/dcase2023_task4_baseline/confs/default_SV.yaml
 /recipes/dcase2023_task4_baseline/pre_trained_checkpoints/
