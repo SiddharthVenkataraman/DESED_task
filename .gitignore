@@ -154,7 +154,6 @@ dmypy.json
 
 # Pycharm
 .idea
-/recipes/dcase2023_task4_baseline/preprocess_tsv_files-SV.py
 /recipes/dcase2023_task4_baseline/environment.yml
 /data/dcase/
 /recipes/dcase2023_task4_baseline/confs/default_SV.yaml
