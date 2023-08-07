@@ -4,9 +4,12 @@ from copy import deepcopy
 from pathlib import Path
 import warnings
 
+import matplotlib.ticker
 import pandas as pd
 import pytorch_lightning as pl
 import torch
+import torchaudio
+import torchaudio.backend.no_backend
 from torchaudio.transforms import AmplitudeToDB, MelSpectrogram
 
 from desed_task.data_augm import mixup
@@ -27,6 +30,7 @@ from desed_task.evaluation.evaluation_measures import (
 from codecarbon import OfflineEmissionsTracker
 import sed_scores_eval
 
+from matplotlib import pyplot as plt
 
 class SEDTask4(pl.LightningModule):
     """ Pytorch lightning module for the SED 2021 baseline
@@ -661,6 +665,60 @@ class SEDTask4(pl.LightningModule):
         # compute f1 score
         self.decoded_student_05_buffer = pd.concat([self.decoded_student_05_buffer, decoded_student_strong[0.5]])
         self.decoded_teacher_05_buffer = pd.concat([self.decoded_teacher_05_buffer, decoded_teacher_strong[0.5]])
+
+    def predict_SV(self, filenames):
+        """
+        Function to predict and visualize predictions using current model
+        Call function with list of path to filenames to be used for predictions.
+        E.g. desed_training.predict_SV(['../../data/dcase/dataset/audio/validation/validation_16k/Y00pbt6aJV8Y_350.000_360.000.wav'])
+        """
+        # TODO: Need to check if prediction is same as that when running the test_step function.
+
+        audio = torchaudio.load(filenames[0])
+
+        audio = audio[0][0:1]
+
+        # prediction for student
+        mels = self.mel_spec(audio)
+        strong_preds_student, weak_preds_student = self.detect(mels, self.sed_student)
+
+        # compute psds
+        (
+            scores_raw_student_strong, scores_postprocessed_student_strong,
+            decoded_student_strong,
+        ) = batched_decode_preds(
+            strong_preds_student,
+            filenames,
+            self.encoder,
+            median_filter=self.hparams["training"]["median_window"],
+            thresholds=list(self.test_psds_buffer_student.keys()) + [.5],
+        )
+
+        for it, cur_file in enumerate(filenames):
+
+            filename = cur_file.split(os.sep)[-1][:-4]  # Extract .wav filename, which is key to prediction dictionary
+
+            fig, AX = plt.subplots(nrows=2, figsize=(25, 9))
+
+            # Plot audio features for current file
+            ax = AX[0]
+            ax.imshow(mels[it], aspect='auto')
+
+            # Plot predictions
+            ax = AX[1]
+            # DF = scores_raw_student_strong[filename]
+            DF = scores_postprocessed_student_strong[filename]
+            pred_labels = DF.columns[2:].to_list()  # Obtain column labels
+            cur_pred = np.array(DF)[:, 2:].transpose()
+            ax.imshow(cur_pred, aspect='auto')
+            ax.set_yticks(np.arange(len(pred_labels)), pred_labels)
+            # ax.set_yticklabels(pred_labels)
+            ax.yaxis.set_major_locator(matplotlib.ticker.MultipleLocator(1))
+
+            fig.suptitle(filename)
+
+            plt.show()
+
 
     def on_test_epoch_end(self):
         # pub eval dataset
