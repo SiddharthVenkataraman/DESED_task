@@ -53,6 +53,9 @@ data: # change with your paths if different.
   test_dur: "../../data/dcase/dataset/metadata/validation/validation_durations.tsv"
   eval_folder: "../../data/dcase/dataset/audio/eval21_16k"
   eval_folder_44k: "../../data/dcase/dataset/audio/eval21"
+  predict_folder: "/home/siddharth/PycharmProjects/DESED_task/data/dcase/dataset/audio/predict/predict_16k"
+  predict_folder_44k: "/home/siddharth/PycharmProjects/DESED_task/data/dcase/dataset/audio/predict/predict"
+  predict_from_checkpoint: "/home/siddharth/PycharmProjects/DESED_task/recipes/dcase2023_task4_baseline/pre_trained_checkpoints/ckpt/legacy_epoch=176-step=20886.ckpt"
   audio_max_len: 10
   fs: 16000
   net_subsample: 4
