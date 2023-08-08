@@ -4,33 +4,28 @@ import yaml
 import os
 import pandas as pd
 
-from desed_task.dataio import ConcatDatasetBatchSampler
-from desed_task.dataio.datasets import StronglyAnnotatedSet, UnlabeledSet, WeakSet
+from desed_task.dataio.datasets import UnlabeledSet
 from desed_task.nnet.CRNN import CRNN
 from desed_task.utils.encoder import ManyHotEncoder
-from desed_task.utils.schedulers import ExponentialWarmup
 
 from local.classes_dict import classes_labels
 from local.sed_trainer import SEDTask4
 from local.resample_folder import resample_folder
-from local.utils import generate_tsv_wav_durations
 
 from local.utils import (
     calculate_macs
 )
 
-
 import pytorch_lightning as pl
-from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint
-from pytorch_lightning.loggers import TensorBoardLogger
-
 from local.utils import generate_tsv_wav_durations
+
 """ 
 Script to load a particular model checkpoint, and use it for making predictions.
 Run script ensuring:
     1. model checkpoint defined either with command line argument "--predict_from_checkpoint <path_to_cpkt_file>", or through yaml variable ['data']['predict_from_checkpoint']
     2. data to be predicted available in folder defined under ['data']['predict_folder_44k'] (or ['data']['predict_folder'] if data already in required sample rate) 
 """
+
 
 def resample_data_generate_durations_for_predictions(config_data, prediction=False):
     """
@@ -52,12 +47,13 @@ def resample_data_generate_durations_for_predictions(config_data, prediction=Fal
     #             config_data[base_set + "_folder"], config_data[base_set + "_dur"]
     #         )
 
+
 def single_run(
-    config,
-    gpus,
-    predict_model_state_dict=None,
-    prediction=False,
-    callbacks=None
+        config,
+        gpus,
+        predict_model_state_dict,
+        prediction=False,
+        callbacks=None
 ):
     """
     Running sound event detection baseline
@@ -103,18 +99,16 @@ def single_run(
     print(f"---------------------------------------------------------------")
     print(f"Total number of multiply–accumulate operation (MACs): {macs}\n")
 
-    if predict_model_state_dict is not None:
-
-        train_dataset = None
-        valid_dataset = None
-        test_dataset = None  # Temporary fix?, since SEDTask4 does not have class for prediction data
-        batch_sampler = None
-        opt = None
-        exp_scheduler = None
-        logger = True
-        fast_dev_run = False
-        evaluation = False
-        callbacks = None
+    train_dataset = None
+    valid_dataset = None
+    test_dataset = None  # Temporary fix?, since SEDTask4 does not have class for prediction data
+    batch_sampler = None
+    opt = None
+    exp_scheduler = None
+    logger = True
+    fast_dev_run = False
+    evaluation = False
+    callbacks = None
 
     desed_training = SEDTask4(
         config,
@@ -178,8 +172,7 @@ def single_run(
     desed_training.load_state_dict(predict_model_state_dict)
     # TODO: Add console parameters "--only_predict", and "path_to_predictions" if predictions are required.
     trainer.predict(desed_training, prediction_dataset)
-    # desed_training.predict_SV(['../../data/dcase/dataset/audio/validation/validation_16k/Y8ws1ligErwo_0.000_10.000.wav'])
-    # trainer.test(desed_training)
+
 
 def prepare_run(argv=None):
     parser = argparse.ArgumentParser("Training a SED system for DESED Task")
@@ -192,7 +185,7 @@ def prepare_run(argv=None):
         "--gpus",
         default="0",
         help="The number of GPUs to train on, or the gpu to use, default='1', "
-        "so uses one GPU",
+             "so uses one GPU",
     )
     parser.add_argument(
         "--predict_from_checkpoint",
