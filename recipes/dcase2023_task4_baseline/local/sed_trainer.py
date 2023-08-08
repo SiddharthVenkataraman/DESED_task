@@ -719,6 +719,59 @@ class SEDTask4(pl.LightningModule):
 
             plt.show()
 
+    def predict_step(self, batch, batch_idx):  #, dataloader_idx: int = 0) -> Any:
+        """
+        Based on function test_step.
+        This function is called when Trainer.predict(model_name, predict_dataset) is called.
+        This function is called once for every datapoint in the predict folder.
+        """
+        audio, labels, padded_indxs, filename = batch
+
+        # prediction for student
+        mels = self.mel_spec(audio)
+
+        # Add dimensions to some variables for compatibility with code from train_step
+        mels = mels[None, :]
+        filenames = [filename]
+        labels = labels[None, :]
+
+        strong_preds_student, weak_preds_student = self.detect(mels, self.sed_student)
+
+        # compute psds
+        (
+            scores_raw_student_strong, scores_postprocessed_student_strong,
+            decoded_student_strong,
+        ) = batched_decode_preds(
+            strong_preds_student,
+            filenames,
+            self.encoder,
+            median_filter=self.hparams["training"]["median_window"],
+            thresholds=list(self.test_psds_buffer_student.keys()) + [.5],
+        )
+
+        filename = filenames[0].split(os.sep)[-1][:-4]  # Extract .wav filename, which is key to prediction dictionary
+
+        fig, AX = plt.subplots(nrows=2, figsize=(25, 9))
+
+        # Plot audio features for current file
+        ax = AX[0]
+        ax.imshow(mels[0], aspect='auto')
+
+        # Plot predictions
+        ax = AX[1]
+        # DF = scores_raw_student_strong[filename]
+        DF = scores_postprocessed_student_strong[filename]
+        pred_labels = DF.columns[2:].to_list()  # Obtain column labels
+        cur_pred = np.array(DF)[:, 2:].transpose()
+        ax.imshow(cur_pred, aspect='auto')
+        ax.set_yticks(np.arange(len(pred_labels)), pred_labels)
+        ax.yaxis.set_major_locator(matplotlib.ticker.MultipleLocator(1))
+
+        fig.suptitle(filename)
+
+        plt.show()
+
+        # return self(batch)
 
     def on_test_epoch_end(self):
         # pub eval dataset
