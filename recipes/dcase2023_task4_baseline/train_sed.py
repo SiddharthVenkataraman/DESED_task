@@ -54,7 +54,7 @@ def resample_data_generate_durations(config_data, test_only=False, evaluation=Fa
                 #    config_data[base_set + "_folder"], config_data[base_set + "_dur"]
                 #)
                 generate_tsv_wav_durations_from_tsv(
-                    config_data[base_set + "_tsv"], config_data[base_set + "_dur"]
+                    config_data[base_set + "_folder"], config_data[base_set + "_tsv"], config_data[base_set + "_dur"]
                 )
 
 def single_run(
