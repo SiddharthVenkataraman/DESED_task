@@ -21,7 +21,7 @@ from desed_task.utils.schedulers import ExponentialWarmup
 from local.classes_dict import classes_labels
 from local.sed_trainer import SEDTask4
 from local.resample_folder import resample_folder
-from local.utils import generate_tsv_wav_durations_from_tsv
+from local.utils import generate_tsv_wav_durations_from_tsv, generate_tsv_wav_durations
 
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint
@@ -50,12 +50,12 @@ def resample_data_generate_durations(config_data, test_only=False, evaluation=Fa
     if not evaluation:
         for base_set in ["synth_val", "test"]:
             if not os.path.exists(config_data[base_set + "_dur"]) or computed:
-                #generate_tsv_wav_durations(
-                #    config_data[base_set + "_folder"], config_data[base_set + "_dur"]
-                #)
-                generate_tsv_wav_durations_from_tsv(
-                    config_data[base_set + "_folder"], config_data[base_set + "_tsv"], config_data[base_set + "_dur"]
+                generate_tsv_wav_durations(
+                   config_data[base_set + "_folder"], config_data[base_set + "_dur"]
                 )
+                # generate_tsv_wav_durations_from_tsv(
+                #     config_data[base_set + "_folder"], config_data[base_set + "_tsv"], config_data[base_set + "_dur"]
+                # )
 
 def single_run(
     config,
