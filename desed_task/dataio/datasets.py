@@ -198,7 +198,6 @@ class StronglyAnnotatedSet(Dataset):
                 raise NotImplementedError
 
             out_args.append(embeddings)
-
         return out_args
 
 

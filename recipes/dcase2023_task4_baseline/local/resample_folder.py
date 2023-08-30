@@ -49,7 +49,7 @@ def resample_folder(in_dir, out_dir, target_fs=16000, regex="*.wav"):
     if os.path.exists(out_dir):
         out_files = glob.glob(os.path.join(out_dir, regex))
         if len(files) == len(out_files):
-            compute = False
+            compute = False ## Doesn't resample if it has already been done 
     
     if compute:
         # Packing resample_file arguments to the multiprocessing pool

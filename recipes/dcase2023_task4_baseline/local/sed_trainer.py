@@ -980,7 +980,6 @@ class SEDTask4(pl.LightningModule):
             batch_sampler=self.train_sampler,
             num_workers=self.num_workers,
         )
-
         return self.train_loader
 
     def val_dataloader(self):

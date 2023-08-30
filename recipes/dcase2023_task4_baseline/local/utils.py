@@ -202,6 +202,29 @@ def generate_tsv_wav_durations(audio_dir, out_tsv):
 
     return meta_df
 
+def generate_tsv_wav_durations_from_tsv(in_tsv, out_tsv):
+    """
+        Generate a dataframe with filename and duration of the file
+    
+    Args:
+        audio_dir: str, the path of the folder where audio files are (used by glob.glob)
+        out_tsv: str, the path of the output tsv file
+    
+    Returns:
+        pd.DataFrame: the dataframe containing filenames and durations
+    """
+    meta_list = []
+    files = pd.read_csv(in_tsv, sep='\t')
+    for index, row in files.iterrows():
+        file = row['filename']
+        d = soundfile.info(file).duration
+        meta_list.append([file, d])
+    meta_df = pd.DataFrame(meta_list, columns=["filename", "duration"])
+    if out_tsv is not None:
+        meta_df.to_csv(out_tsv, sep="\t", index=False, float_format="%.1f")
+
+    return meta_df
+
 
 def calculate_macs(model, config, dataset=None):
     """
