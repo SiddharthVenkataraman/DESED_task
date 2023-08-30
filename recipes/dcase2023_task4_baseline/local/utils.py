@@ -219,6 +219,8 @@ def generate_tsv_wav_durations_from_tsv(audio_dir, in_tsv, out_tsv):
         file = row['filename']
         d = soundfile.info(os.path.join(audio_dir, file)).duration
         meta_list.append([file, d])
+        print("Fichier {} : {}".format(index, file))
+        print("Chemin absolu : {}".format(os.path.join(audio_dir, file)))
     meta_df = pd.DataFrame(meta_list, columns=["filename", "duration"])
     if out_tsv is not None:
         meta_df.to_csv(out_tsv, sep="\t", index=False, float_format="%.1f")
