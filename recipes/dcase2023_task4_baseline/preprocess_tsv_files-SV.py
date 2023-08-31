@@ -55,6 +55,7 @@ if __name__ == '__main__':
         (config["data"]["synth_val_tsv"], config["data"]["synth_val_folder_44k"]),
         (config["data"]["synth_val_dur"], config["data"]["synth_val_folder_44k"]),
         (config["data"]["test_tsv"], config["data"]["test_folder_44k"]),
+        (config["data"]["unlabeled_tsv"], config["data"]["unlabeled_folder_44k"]),
         # (config["data"]["test_dur"], config["data"]["test_folder_44k"]),
     ]
 
