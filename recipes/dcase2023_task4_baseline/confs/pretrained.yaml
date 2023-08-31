@@ -10,7 +10,7 @@ training:
   const_max: 2 # max weight used for self supervised loss
   n_epochs_warmup: 50 # num epochs used for exponential warmup
   num_workers: 6 # change according to your cpu
-  n_epochs: 200 # max num epochs
+  n_epochs: 500 # max num epochs
   early_stop_patience: 200 # Same as number of epochs by default, so no early stopping used
   accumulate_batches: 1
   gradient_clip: 0. # 0 no gradient clipping
@@ -39,23 +39,23 @@ data: # change with your paths if different.
   # resampled data will be placed.
   synth_folder: "../../data/dcase/dataset/dcase_synth/audio/train/synthetic21_train/soundscapes_16k/"
   synth_folder_44k: "../../data/dcase/dataset/dcase_synth/audio/train/synthetic21_train/soundscapes/"
-  synth_tsv:  "../../data/dcase/dataset/dcase_synth/metadata/train/synthetic21_train/soundscapes.tsv"
+  synth_tsv:  "../../data/dcase/dataset/dcase_synth/metadata/train/synthetic21_train/soundscapes_removed_missing_SV.tsv"  # UPDATED
   strong_folder: "../../data/dcase/dataset/audio/train/strong_label_real_16k/"
   strong_folder_44k: "../../data/dcase/dataset/audio/train/strong_label_real/"
-  strong_tsv: "../../data/dcase/dataset/metadata/train/audioset_strong.tsv"
+  strong_tsv: "../../data/dcase/dataset/metadata/train/audioset_strong_removed_missing_SV.tsv"  # UPDATED
   weak_folder: "../../data/dcase/dataset/audio/train/weak_16k/"
   weak_folder_44k: "../../data/dcase/dataset/audio/train/weak/"
-  weak_tsv: "../../data/dcase/dataset/metadata/train/weak.tsv"
+  weak_tsv: "../../data/dcase/dataset/metadata/train/weak_removed_missing_SV.tsv"  # UPDATED
   unlabeled_folder: "../../data/dcase/dataset/audio/train/unlabel_in_domain_16k/"
   unlabeled_folder_44k: "../../data/dcase/dataset/audio/train/unlabel_in_domain/"
   unlabeled_tsv: "../../data/dcase/dataset/metadata/train/unlabel_in_domain_removed_missing_SV.tsv" # ADDED
   synth_val_folder: "../../data/dcase/dataset/audio/validation/synthetic21_validation/soundscapes_16k/"
   synth_val_folder_44k: "../../data/dcase/dataset/dcase_synth/audio/validation/synthetic21_validation/soundscapes/"
-  synth_val_tsv:  "../../data/dcase/dataset/dcase_synth/metadata/validation/synthetic21_validation/soundscapes.tsv"
-  synth_val_dur: "../../data/dcase/dataset/dcase_synth/metadata/validation/synthetic21_validation/durations.tsv"
+  synth_val_tsv:  "../../data/dcase/dataset/dcase_synth/metadata/validation/synthetic21_validation/soundscapes_removed_missing_SV.tsv"  # UPDATED
+  synth_val_dur: "../../data/dcase/dataset/dcase_synth/metadata/validation/synthetic21_validation/durations_removed_missing_SV.tsv"  # UPDATED
   test_folder: "../../data/dcase/dataset/audio/validation/validation_16k/"
   test_folder_44k: "../../data/dcase/dataset/audio/validation/validation/"
-  test_tsv: "../../data/dcase/dataset/metadata/validation/validation.tsv"
+  test_tsv: "../../data/dcase/dataset/metadata/validation/validation_removed_missing_SV.tsv"  # UPDATED
   test_dur: "../../data/dcase/dataset/metadata/validation/validation_durations.tsv"
   eval_folder: "../../data/dcase/dataset/audio/eval21_16k"
   eval_folder_44k: "../../data/dcase/dataset/audio/eval21"
@@ -76,7 +76,7 @@ net:
   dropout: 0.5
   rnn_layers: 2
   n_in_channel: 1
-  nclass: 10
+  nclass: 11
   attention: True
   n_RNN_cell: 128
   activation: glu
