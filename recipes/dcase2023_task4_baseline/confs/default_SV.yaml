@@ -43,6 +43,7 @@ data: # change with your paths if different.
   weak_tsv: "../../data/dcase/dataset/metadata/train/weak_removed_missing_SV.tsv"  # UPDATED
   unlabeled_folder: "../../data/dcase/dataset/audio/train/unlabel_in_domain_16k/"
   unlabeled_folder_44k: "../../data/dcase/dataset/audio/train/unlabel_in_domain/"
+  unlabeled_tsv: "../../data/dcase/dataset/metadata/train/unlabel_in_domain.tsv" # ADDED
   synth_val_folder: "../../data/dcase/dataset/audio/validation/synthetic21_validation/soundscapes_16k/"
   synth_val_folder_44k: "../../data/dcase/dataset/dcase_synth/audio/validation/synthetic21_validation/soundscapes/"
   synth_val_tsv:  "../../data/dcase/dataset/dcase_synth/metadata/validation/synthetic21_validation/soundscapes_removed_missing_SV.tsv"  # UPDATED

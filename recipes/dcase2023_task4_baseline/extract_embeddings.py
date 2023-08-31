@@ -19,13 +19,17 @@ class WavDataset(torch.utils.data.Dataset):
     def __init__(
         self,
         folder,
+        tsv_file,
         pad_to=10,
         fs=16000,
         feats_pipeline=None
     ):
         self.fs = fs
         self.pad_to = pad_to * fs if pad_to is not None else None
-        self.examples = glob.glob(os.path.join(folder, "*.wav"))
+        #self.examples = glob.glob(os.path.join(folder, "*.wav"))
+        # Iterates over the rows of the tsv file and join folder path with filename to get absolute paths of all files
+        # We change the already existing code (glob.glob) because it can't include our file given that they are in sub-folders
+        self.examples = [os.path.join(folder, row['filename']) for index, row in pd.read_csv(tsv_file, sep='\t').iterrows()] 
         self.feats_pipeline = feats_pipeline
 
     def __len__(self):
@@ -161,47 +165,56 @@ if __name__ == "__main__":
         pretrained = pretrained.cuda()
 
     pretrained.eval()
-    synth_df = pd.read_csv(config["data"]["synth_tsv"], sep="\t")
+    #synth_df = pd.read_csv(config["data"]["synth_tsv"], sep="\t")
     synth_set = WavDataset(
         config["data"]["synth_folder"],
+        config["data"]["synth_tsv"],
         feats_pipeline=feature_extraction)
 
     synth_set[0]
 
     strong_set = WavDataset(
         config["data"]["strong_folder"],
+        config["data"]["strong_tsv"],
         feats_pipeline=feature_extraction)
     
     
-    weak_df = pd.read_csv(config["data"]["weak_tsv"], sep="\t")
-    train_weak_df = weak_df.sample(
-        frac=config["training"]["weak_split"],
-        random_state=config["training"]["seed"])
+    #weak_df = pd.read_csv(config["data"]["weak_tsv"], sep="\t")
+    #train_weak_df = weak_df.sample(
+    #    frac=config["training"]["weak_split"],
+    #    random_state=config["training"]["seed"])
 
-    valid_weak_df = weak_df.drop(train_weak_df.index).reset_index(drop=True)
-    train_weak_df = train_weak_df.reset_index(drop=True)
+    #valid_weak_df = weak_df.drop(train_weak_df.index).reset_index(drop=True)
+    #train_weak_df = train_weak_df.reset_index(drop=True)
     weak_set = WavDataset(
         config["data"]["weak_folder"],
+        config["data"]["weak_tsv"],
         feats_pipeline=feature_extraction)
 
     unlabeled_set = WavDataset(
         config["data"]["unlabeled_folder"],
+        config["data"]["unlabeled_tsv"],
         feats_pipeline=feature_extraction)
 
-    synth_df_val = pd.read_csv(config["data"]["synth_val_tsv"],
-                               sep="\t")
+    #synth_df_val = pd.read_csv(config["data"]["synth_val_tsv"],
+    #                           sep="\t")
     synth_val = WavDataset(
         config["data"]["synth_val_folder"],
+        config["data"]["synth_val_tsv"],
         feats_pipeline=feature_extraction
     )
 
     weak_val = WavDataset(
         config["data"]["weak_folder"],
+        config["data"]["weak_tsv"],
         feats_pipeline=feature_extraction
     )
 
     devtest_dataset = WavDataset(
-        config["data"]["test_folder"], feats_pipeline=feature_extraction)
+        config["data"]["test_folder"], 
+        config["data"]["test_tsv"],
+        feats_pipeline=feature_extraction)
+    
     for k, elem in {"synth_train": synth_set, "weak_train": weak_set,
                     "strong_train": strong_set,
                     "unlabeled_train" : unlabeled_set,

@@ -310,6 +310,7 @@ class UnlabeledSet(Dataset):
         self,
         unlabeled_folder,
         encoder,
+        tsv_entries=None,
         pad_to=10,
         fs=16000,
         return_filename=False,
@@ -323,7 +324,12 @@ class UnlabeledSet(Dataset):
         self.encoder = encoder
         self.fs = fs
         self.pad_to = pad_to * fs if pad_to is not None else None 
-        self.examples = glob.glob(os.path.join(unlabeled_folder, "*.wav"))
+        if tsv_entries is None:
+            # If we are only doing evaluation
+            self.examples = glob.glob(os.path.join(unlabeled_folder, "*.wav"))
+        else: 
+            # We change the already existing code (glob.glob) because it can't include our file given that they are in sub-folders
+            self.examples = [os.path.join(unlabeled_folder, row['filename']) for index, row in pd.read_csv(tsv_entries, sep='\t').iterrows()] 
         self.return_filename = return_filename
         self.random_channel = random_channel
         self.multisrc = multisrc

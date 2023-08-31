@@ -162,6 +162,7 @@ def single_run(
         unlabeled_set = UnlabeledSet(
             config["data"]["unlabeled_folder"],
             encoder,
+            tsv_entries=config["data"]["unlabeled_tsv"],
             pad_to=config["data"]["audio_max_len"],
         )
 

@@ -159,9 +159,9 @@ dmypy.json
 /recipes/dcase2023_task4_baseline/pre_trained_checkpoints/
 
 # Ignore some of Huimin's modification 
-recipes/dcase2023_task4_baseline/confs/
-recipes/dcase2023_task4_baseline/missing_files/ 
-recipes/dcase2023_task4_baseline/exp/
+missing_files/ 
+exp/
 recipes/dcase2023_task4_baseline/conda_create_environment.sh
 data/
 ckpt/
+embeddings/

@@ -234,7 +234,9 @@ def single_run(
         unlabeled_set = UnlabeledSet(
             config["data"]["unlabeled_folder"],
             encoder,
-            pad_to=config["data"]["audio_max_len"],  feats_pipeline=feature_extraction,
+            tsv_entries=config["data"]["unlabeled_tsv"],
+            pad_to=config["data"]["audio_max_len"],  
+            feats_pipeline=feature_extraction,
             embeddings_hdf5_file=unlabeled_set_embeddings,
             embedding_type=config["net"]["embedding_type"]
         )
