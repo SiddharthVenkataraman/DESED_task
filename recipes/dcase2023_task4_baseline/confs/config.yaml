@@ -1,5 +1,5 @@
 experimentName: dcaseNAS
-searchSpaceFile: confs/search_space.json
+searchSpaceFile: search_space.json
 trialCommand: python3 train_sed_nni.py -c confs/default_SV.yaml
 trialCodeDirectory: ../
 trialGpuNumber: 1
