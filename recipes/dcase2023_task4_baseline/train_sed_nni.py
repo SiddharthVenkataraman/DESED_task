@@ -11,6 +11,9 @@ import yaml
 
 def main(args):
     """Main function"""
+    
+    # Print the current location
+    print(os.getcwd())
 
     # Open the config file and create a copy of it
     with open(args.config, 'r') as f:
@@ -38,7 +41,7 @@ def main(args):
                 config_copy["activation"] = "Relu"
     
     # Save the config file
-    config_file = os.path.join(os.path.dirname(args.config), 'confs/config_nni.yml')
+    config_file = os.path.join(os.path.dirname(args.config), 'config_nni.yml')
     with open(config_file, 'w') as f:
         yaml.dump(config_copy, f)
         
