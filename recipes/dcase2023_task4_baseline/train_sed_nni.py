@@ -44,7 +44,7 @@ def main(args):
         yaml.dump(config_copy, f)
         
     # Call train_sed with the new config file
-    command = 'python ../train_sed.py --conf_file {}'.format(config_file) + ' --gpus 1' + ' --fast_dev_run'
+    command = 'python3 ../train_sed.py --conf_file {}'.format(config_file) + ' --gpus 1' + ' --fast_dev_run'
     os.system(command)
     
 if __name__ == '__main__':
