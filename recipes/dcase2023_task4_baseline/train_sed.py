@@ -390,7 +390,7 @@ def prepare_run(argv=None):
                 config_copy["activation"] = "Relu"
     
     # Save the config file
-    config_file = os.path.join(os.path.dirname(args.config), 'config_nni.yml')
+    config_file = os.path.join(os.path.dirname(args.conf_file), 'config_nni.yml')
     with open(config_file, 'w') as f:
         yaml.dump(config_copy, f)
         
