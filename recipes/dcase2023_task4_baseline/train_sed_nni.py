@@ -4,7 +4,6 @@ Executable python file that calls train_sed with the parameters obtained from nn
 
 import argparse
 import os
-import sys
 import nni
 import logging
 import yaml
@@ -39,17 +38,17 @@ def main(args):
                 config_copy["activation"] = "Relu"
     
     # Save the config file
-    config_file = os.path.join(os.path.dirname(args.config), 'config_nni.yml')
+    config_file = os.path.join(os.path.dirname(args.config), 'confs/config_nni.yml')
     with open(config_file, 'w') as f:
         yaml.dump(config_copy, f)
         
     # Call train_sed with the new config file
-    command = 'python3 ../train_sed.py --conf_file {}'.format(config_file) + ' --gpus 1' + ' --fast_dev_run'
+    command = 'python3 train_sed.py --conf_file {}'.format(config_file) + ' --gpus 1' + ' --fast_dev_run'
     os.system(command)
     
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-c', '--config', type=str, required=True, default="config_SV.yaml",
+    parser.add_argument('-c', '--config', type=str, required=True, default="confs/config_SV.yaml",
                         help='Path to the config file to modify')
     args = parser.parse_args()
     main(args)
