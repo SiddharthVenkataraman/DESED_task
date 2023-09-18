@@ -8,6 +8,8 @@ import random
 import torch
 import yaml
 
+import nni
+
 from local.utils import (
     calculate_macs
 )
@@ -363,8 +365,38 @@ def prepare_run(argv=None):
 
     args = parser.parse_args(argv)
 
-    with open(args.conf_file, "r") as f:
-        configs = yaml.safe_load(f)
+    # Open the config file and create a copy of it
+    with open(args.conf_file, 'r') as f:
+        config = yaml.load(f, Loader=yaml.FullLoader)
+    config_copy = config.copy()
+    
+    # Get the parameters from nni
+    params = nni.get_next_parameter()
+    
+    # Update the config file with the new parameters
+    for key, value in params.items():
+        if key != "attention" and key != "activation":
+            config_copy[key] = value
+        elif key == "attention":
+            if value == 1:
+                config_copy["attention"] = True
+            else:
+                config_copy["attention"] = False
+                
+        elif key == "activation":
+            if value == 1:
+                config_copy["activation"] = "glu"
+            else:
+                config_copy["activation"] = "Relu"
+    
+    # Save the config file
+    config_file = os.path.join(os.path.dirname(args.config), 'config_nni.yml')
+    with open(config_file, 'w') as f:
+        yaml.dump(config_copy, f)
+        
+    # Load the config file
+    with open(config_file, 'r') as f:
+        configs = yaml.load(f, Loader=yaml.FullLoader)
 
     evaluation = False 
     test_from_checkpoint = args.test_from_checkpoint
