@@ -572,7 +572,7 @@ class SEDTask4(pl.LightningModule):
         
         # Report Intermediate Results to NNI
         result = {
-            "default": obj_metric.item(),
+            "default":psds1_student_sed_scores_eval.item(),
             "weak_student_f1_macro": weak_student_f1_macro.item(),
             "weak_teacher_f1_macro": weak_teacher_f1_macro.item(),
             "synth_metric": synth_metric.item(),
