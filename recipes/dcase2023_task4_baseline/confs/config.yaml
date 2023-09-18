@@ -1,6 +1,6 @@
 experimentName: dcaseNAS
 searchSpaceFile: search_space.json
-trialCommand: python3 train_sed.py --conf_file confs/default_SV.yaml --gpus 1 --fast_dev_run
+trialCommand: python3 train_sed.py --conf_file confs/default_SV.yaml --gpus 1
 trialCodeDirectory: ../
 trialGpuNumber: 1
 trialConcurrency: 1
@@ -9,7 +9,7 @@ maxTrialNumber: 1000
 tuner:
   name: TPE
   classArgs:
-    optimize_mode: minimize
+    optimize_mode: maximize
 trainingService:
   platform: local
   useActiveGpu: True
