@@ -377,18 +377,18 @@ def prepare_run(argv=None):
     # Update the config file with the new parameters
     for key, value in params.items():
         if key != "attention" and key != "activation":
-            config_copy[key] = value
+            config_copy["net"][key] = value
         elif key == "attention":
             if value == 1:
-                config_copy["attention"] = True
+                config_copy["net"]["attention"] = True
             else:
-                config_copy["attention"] = False
+                config_copy["net"]["attention"] = False
                 
         elif key == "activation":
             if value == 1:
-                config_copy["activation"] = "glu"
+                config_copy["net"]["activation"] = "glu"
             else:
-                config_copy["activation"] = "Relu"
+                config_copy["net"]["activation"] = "Relu"
     
     # Save the config file
     config_file = os.path.join(os.path.dirname(args.conf_file), 'config_nni.yml')
