@@ -989,10 +989,10 @@ class SEDTask4(pl.LightningModule):
                 "psds1_teacher_sed_scores_eval": psds1_teacher_sed_scores_eval.item(),
                 "psds2_teacher_psds_eval": psds2_teacher_psds_eval.item(),
                 "psds2_teacher_sed_scores_eval": psds2_teacher_sed_scores_eval.item(),
-                "event_macro_student": event_macro_student.item(),
-                "intersection_f1_macro_student": intersection_f1_macro_student.item(),
-                "event_macro_teacher": event_macro_teacher.item(),
-                "intersection_f1_macro_teacher": intersection_f1_macro_teacher.item(),
+                "event_macro_student": event_macro_student,
+                "intersection_f1_macro_student": intersection_f1_macro_student,
+                "event_macro_teacher": event_macro_teacher,
+                "intersection_f1_macro_teacher": intersection_f1_macro_teacher,
             }
             nni.report_final_result(final_result)
 
