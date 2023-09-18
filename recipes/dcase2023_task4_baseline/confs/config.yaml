@@ -1,7 +1,7 @@
 experimentName: dcaseNAS
 searchSpaceFile: confs/search_space.json
 trialCommand: python3 train_sed_nni.py -c confs/default_SV.yaml
-trialCodeDirectory: .
+trialCodeDirectory: ../
 trialGpuNumber: 1
 trialConcurrency: 1
 maxExperimentDuration: 24h
