@@ -1,0 +1,8 @@
+{
+    "dropout": {"_type": "uniform", "_value": [0.2, 0.8]},
+    "rnn_layers": {"_type": "choice", "_value": [1, 2, 3]},
+    "n_RNN_cell": {"_type": "choice", "_value": [32, 64, 128, 256]},
+    "attention": {"_type": "choice", "_value": [1, 0]},
+    "activation": {"_type": "choice", "_value": [1, 0]},
+    "dropout_recurrent": {"_type": "uniform", "_value": [0, 0.2]}
+}

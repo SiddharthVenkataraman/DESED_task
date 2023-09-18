@@ -17,6 +17,8 @@ from desed_task.utils.scaler import TorchScaler
 import numpy as np
 import torchmetrics
 
+import nni
+
 from .utils import (
     batched_decode_preds,
     log_sedeval_metrics,
@@ -567,6 +569,20 @@ class SEDTask4(pl.LightningModule):
             )
 
         obj_metric = torch.tensor(weak_student_f1_macro.item() + synth_metric)
+        
+        # Report Intermediate Results to NNI
+        result = {
+            "default": obj_metric.item(),
+            "weak_student_f1_macro": weak_student_f1_macro.item(),
+            "weak_teacher_f1_macro": weak_teacher_f1_macro.item(),
+            "synth_metric": synth_metric.item(),
+            "psds1_student_sed_scores_eval": psds1_student_sed_scores_eval.item(),
+            "intersection_f1_macro_student": intersection_f1_macro_student.item(),
+            "intersection_f1_macro_teacher": intersection_f1_macro_teacher.item(),
+            "synth_student_event_macro": synth_student_event_macro.item(),
+            "synth_teacher_event_macro": synth_teacher_event_macro.item(),
+        }
+        nni.report_intermediate_result(result)
 
         self.log("val/obj_metric", obj_metric, prog_bar=True)
         self.log("val/weak/student/macro_F1", weak_student_f1_macro)
@@ -580,7 +596,7 @@ class SEDTask4(pl.LightningModule):
         )
         self.log("val/synth/student/event_f1_macro", synth_student_event_macro)
         self.log("val/synth/teacher/event_f1_macro", synth_teacher_event_macro)
-
+        
         # free the buffers
         self.val_buffer_student_synth = {
             k: pd.DataFrame() for k in self.hparams["training"]["val_thresholds"]
@@ -961,6 +977,24 @@ class SEDTask4(pl.LightningModule):
             results.update({"/test/tot_energy_kWh": torch.tensor(float(eval_kwh))})
             with open(os.path.join(self.exp_dir, "devtest_codecarbon", "devtest_tot_kwh.txt"), "w") as f:
                 f.write(str(eval_kwh))
+                
+            # Report Final Results to NNI
+            final_result = {
+                "default": best_test_result.item(),
+                "psds1_student_psds_eval": psds1_student_psds_eval.item(),
+                "psds1_student_sed_scores_eval": psds1_student_sed_scores_eval.item(),
+                "psds2_student_psds_eval": psds2_student_psds_eval.item(),
+                "psds2_student_sed_scores_eval": psds2_student_sed_scores_eval.item(),
+                "psds1_teacher_psds_eval": psds1_teacher_psds_eval.item(),
+                "psds1_teacher_sed_scores_eval": psds1_teacher_sed_scores_eval.item(),
+                "psds2_teacher_psds_eval": psds2_teacher_psds_eval.item(),
+                "psds2_teacher_sed_scores_eval": psds2_teacher_sed_scores_eval.item(),
+                "event_macro_student": event_macro_student.item(),
+                "intersection_f1_macro_student": intersection_f1_macro_student.item(),
+                "event_macro_teacher": event_macro_teacher.item(),
+                "intersection_f1_macro_teacher": intersection_f1_macro_teacher.item(),
+            }
+            nni.report_final_result(final_result)
 
         if self.logger is not None:
             self.logger.log_metrics(results)
