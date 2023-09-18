@@ -579,8 +579,8 @@ class SEDTask4(pl.LightningModule):
             "psds1_student_sed_scores_eval": psds1_student_sed_scores_eval.item(),
             "intersection_f1_macro_student": intersection_f1_macro_student.item(),
             "intersection_f1_macro_teacher": intersection_f1_macro_teacher.item(),
-            "synth_student_event_macro": synth_student_event_macro.item(),
-            "synth_teacher_event_macro": synth_teacher_event_macro.item(),
+            "synth_student_event_macro": synth_student_event_macro,
+            "synth_teacher_event_macro": synth_teacher_event_macro,
         }
         nni.report_intermediate_result(result)
 
