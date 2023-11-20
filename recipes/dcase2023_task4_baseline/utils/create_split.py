@@ -32,8 +32,8 @@ def main(args):
     df = pd.read_csv(args.input_tsv, sep="\t")
     dur_df = pd.read_csv(args.input_dur, sep="\t")
     split_dfs = split_df(df, dur_df, args.split_ratio)
-    for split_df, split_dur_df, output_path in zip(split_dfs, [args.output_train, args.output_test, args.output_val]):
-        split_df.to_csv(output_path, sep="\t", index=False)
+    for split_tsv, split_dur_df, output_path in zip(split_dfs, [args.output_train, args.output_test, args.output_val]):
+        split_tsv.to_csv(output_path, sep="\t", index=False)
         split_dur_df.to_csv(output_path.replace(".tsv", "_dur.tsv"), sep="\t", index=False)
     
 if __name__ == '__main__':
