@@ -51,7 +51,7 @@ data: # change with your paths if different.
   test_folder: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/"
   test_folder_44k: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/"
   test_tsv: "/srv/shared_data/single_vehicle-20sec_gap15sec/test.tsv"
-  test_dur: "/srv/shared_data/single_vehicle-20sec_gap15sec/test_dur.tsv"
+  test_dur: "/srv/shared_data/single_vehicle-20sec_gap15sec/test_duration.tsv"
   eval_folder: "/srv/shared_data/single_vehicle-20sec_gap15sec/placeholder/"
   eval_folder_44k: "/srv/shared_data/single_vehicle-20sec_gap15sec/placeholder/"
   predict_folder: "/predict_16k"
