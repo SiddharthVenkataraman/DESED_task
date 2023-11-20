@@ -31,7 +31,7 @@ def main(args):
     
     # Split dataframe
     split_dfs = split_df(df, dur_df, args.split_ratio)
-    outputs = [args.output_train, args.output_test, args.output_val]
+    outputs = [args.output_train, args.output_test]
     for i, split_tsv in enumerate(split_dfs):
         split_tsv[0].to_csv(outputs[i], sep="\t", index=False)
         split_tsv[1].to_csv(outputs[i].replace(".tsv", "_duration.tsv"), sep="\t", index=False)
