@@ -60,7 +60,14 @@ def main(args):
     dur_df = pd.read_csv(args.input_dur, sep="\t")
 
     # Split dataframe and move files
-    split_dfs = split_df(df, dur_df, args.split_ratios, args.base_folder)
+    split_ratios = {
+        'strong': args.split_ratios[0],
+        'synth': args.split_ratios[1],
+        'weak': args.split_ratios[2],
+        'unlabeled': args.split_ratios[3],
+        'test': args.split_ratios[4]
+    }
+    split_dfs = split_df(df, dur_df, split_ratios, args.base_folder)
 
     # Save split dataframes
     for set_name, (data_df, dur_df) in split_dfs.items():
