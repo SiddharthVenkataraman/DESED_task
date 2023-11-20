@@ -31,6 +31,14 @@ def split_df(df: pd.DataFrame, dur_df: pd.DataFrame, split_ratios: dict, base_fo
     strong, synth_val = train_test_split(strong, test_size=synth_val_size, random_state=random_state)
     
     print(f"Strong: {len(strong)}, Test: {len(test)}, Weak: {len(weak)}, Unlabeled: {len(unlabeled)}, Synth Train: {len(synth_train)}, Synth Val: {len(synth_val)}")
+    
+    # Creating duration dataframes for each set
+    strong_dur = dur_df[dur_df.filename.isin(strong.filename)]
+    synth_train_dur = dur_df[dur_df.filename.isin(synth_train.filename)]
+    synth_val_dur = dur_df[dur_df.filename.isin(synth_val.filename)]
+    weak_dur = dur_df[dur_df.filename.isin(weak.filename)]
+    unlabeled_dur = dur_df[dur_df.filename.isin(unlabeled.filename)]
+    test_dur = dur_df[dur_df.filename.isin(test.filename)]
 
     # Function to update paths and move files
     def update_paths_and_move_files(df, set_name):
@@ -46,14 +54,13 @@ def split_df(df: pd.DataFrame, dur_df: pd.DataFrame, split_ratios: dict, base_fo
     # Update paths and move files for each set
     for set_name, set_df in zip(['strong', 'synth_train', 'synth_val', 'weak', 'unlabeled', 'test'], [strong, synth_train, synth_val, weak, unlabeled, test]):
         update_paths_and_move_files(set_df, set_name)
-        
-    # Creating duration dataframes for each set
-    strong_dur = dur_df[dur_df.filename.isin(strong.filename)]
-    synth_train_dur = dur_df[dur_df.filename.isin(synth_train.filename)]
-    synth_val_dur = dur_df[dur_df.filename.isin(synth_val.filename)]
-    weak_dur = dur_df[dur_df.filename.isin(weak.filename)]
-    unlabeled_dur = dur_df[dur_df.filename.isin(unlabeled.filename)]
-    test_dur = dur_df[dur_df.filename.isin(test.filename)]
+    
+    strong_dur['filename'] = strong_dur['filename'].apply(lambda x: os.path.join('strong', os.path.basename(x)))
+    synth_train_dur['filename'] = synth_train_dur['filename'].apply(lambda x: os.path.join('synth_train', os.path.basename(x)))
+    synth_val_dur['filename'] = synth_val_dur['filename'].apply(lambda x: os.path.join('synth_val', os.path.basename(x)))
+    weak_dur['filename'] = weak_dur['filename'].apply(lambda x: os.path.join('weak', os.path.basename(x)))
+    unlabeled_dur['filename'] = unlabeled_dur['filename'].apply(lambda x: os.path.join('unlabeled', os.path.basename(x)))
+    test_dur['filename'] = test_dur['filename'].apply(lambda x: os.path.join('test', os.path.basename(x)))    
     
     return {
         'strong': (strong, strong_dur),
