@@ -18,6 +18,7 @@ def split_df(dataframe: pd.DataFrame, dur_df: pd.DataFrame, split_ratios: dict, 
     """
     df = dataframe.copy()
     df.filename = df.filename.apply(lambda x: x.split('/')[-1])
+    df.rename(columns={'event_label': 'event_labels'}, inplace=True)
     
     # Split dataframe
     print(f"Splitting dataframe with {len(df)} rows")
