@@ -91,7 +91,7 @@ This set contains **1578** clips (2244 class occurrences) for which weak annotat
 
 The weak annotations are provided in a tab separated csv file under the following format:
 
-`[filename (string)][tab][event_labels (strings)]`
+`[filename (string)][tab][event_label (strings)]`
 
 For example: Y-BJNMHMZDcU_50.000_60.000.wav Alarm_bell_ringing,Dog
 

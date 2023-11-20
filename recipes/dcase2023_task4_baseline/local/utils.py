@@ -70,7 +70,7 @@ def batched_decode_preds(
 
 
 def convert_to_event_based(weak_dataframe):
-    """ Convert a weakly labeled DataFrame ('filename', 'event_labels') to a DataFrame strongly labeled
+    """ Convert a weakly labeled DataFrame ('filename', 'event_label') to a DataFrame strongly labeled
     ('filename', 'onset', 'offset', 'event_label').
 
     Args:
@@ -83,7 +83,7 @@ def convert_to_event_based(weak_dataframe):
     new = []
     for i, r in weak_dataframe.iterrows():
 
-        events = r["event_labels"].split(",")
+        events = r["event_label"].split(",")
         for e in events:
             new.append(
                 {"filename": r["filename"], "event_label": e, "onset": 0, "offset": 1}
