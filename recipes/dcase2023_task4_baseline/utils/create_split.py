@@ -36,10 +36,13 @@ def main(args):
     df = pd.read_csv(args.input_tsv, sep="\t")
     dur_df = pd.read_csv(args.input_dur, sep="\t")
     split_dfs = split_df(df, dur_df, args.split_ratio)
-    for split_tsv, split_dur_df, output_path in zip(split_dfs, [args.output_train, args.output_test, args.output_val]):
-        split_tsv.to_csv(output_path, sep="\t", index=False)
-        split_dur_df.to_csv(output_path.replace(".tsv", "_dur.tsv"), sep="\t", index=False)
-    
+    outputs = [args.output_train, args.output_test, args.output_val]
+    for i, split_df in enumerate(split_dfs):
+        split_df[0].to_csv(outputs[i], sep="\t", index=False)
+        split_df[1].to_csv(outputs[i].replace(".tsv", "_dur.tsv"), sep="\t", index=False)
+        print(f"Saved {outputs[i]} and {outputs[i].replace('.tsv', '_dur.tsv')}")        
+        
+        
 if __name__ == '__main__':
     print("Splitting dataframe")
     parser = argparse.ArgumentParser(description="Split a dataframe into train, test and val according to the split ratio [train, test] (val is the rest)")
