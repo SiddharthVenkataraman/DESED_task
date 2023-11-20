@@ -16,6 +16,7 @@ def split_df(df: pd.DataFrame, dur_df:pd.DataFrame, split_ratio: list, random_st
     """
     csv = df.copy()
     csv.filename = csv.filename.apply(lambda x: x.split("/")[-1])
+    print(f"Total: {len(csv)} files")
     train, temp = train_test_split(csv, train_size=split_ratio[0], random_state=random_state, stratify=df['event_label'])
     val, test = train_test_split(temp, test_size=split_ratio[1], random_state=random_state, stratify=temp['event_label'])
     
