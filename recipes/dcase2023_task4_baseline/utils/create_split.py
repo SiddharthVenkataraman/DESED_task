@@ -57,13 +57,12 @@ def split_df(dataframe: pd.DataFrame, dur_df: pd.DataFrame, split_ratios: dict, 
     # Update paths and move files for each set
     for set_name, set_df in zip(['strong', 'synth_train', 'synth_val', 'weak', 'unlabeled', 'test'], [strong, synth_train, synth_val, weak, unlabeled, test]):
         update_paths_and_move_files(set_df, set_name)
-    
-    strong_dur.filename = strong_dur.filename.apply(lambda x: os.path.join('strong', os.path.basename(x)))
-    synth_train_dur.filename = synth_train_dur.filename.apply(lambda x: os.path.join('synth_train', os.path.basename(x)))
-    synth_val_dur.filename = synth_val_dur.filename.apply(lambda x: os.path.join('synth_val', os.path.basename(x)))
-    weak_dur.filename = weak_dur.filename.apply(lambda x: os.path.join('weak', os.path.basename(x)))
-    unlabeled_dur.filename = unlabeled_dur.filename.apply(lambda x: os.path.join('unlabeled', os.path.basename(x)))
-    test_dur.filename = test_dur.filename.apply(lambda x: os.path.join('test', os.path.basename(x)))    
+        
+    strong_dur.loc[:, 'filename'] = strong_dur.loc[:, 'filename'].apply(lambda x: os.path.join('strong', os.path.basename(x)))
+    synth_train_dur.loc[:, 'filename'] = synth_train_dur.loc[:, 'filename'].apply(lambda x: os.path.join('synth_train', os.path.basename(x)))
+    synth_val_dur.loc[:, 'filename'] = synth_val_dur.loc[:, 'filename'].apply(lambda x: os.path.join('synth_val', os.path.basename(x)))
+    weak_dur.loc[:, 'filename'] = weak_dur.loc[:, 'filename'].apply(lambda x: os.path.join('weak', os.path.basename(x)))
+    unlabeled_dur.loc[:, 'filename'] = unlabeled_dur.loc[:, 'filename'].apply(lambda x: os.path.join('unlabeled', os.path.basename(x)))
     
     return {
         'strong': (strong, strong_dur),
