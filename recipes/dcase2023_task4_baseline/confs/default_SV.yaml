@@ -54,7 +54,7 @@ data: # change with your paths if different.
   test_dur: "/srv/shared_data/single_vehicle-20sec_gap15sec/test_dur.tsv"
   eval_folder: null
   eval_folder_44k: null
-  predict_folder: /predict_16k"
+  predict_folder: "/predict_16k"
   predict_folder_44k: "../../data/small_dataset/" ####
   predict_from_checkpoint: "../../recipes/dcase2023_task4_baseline/pre_trained_checkpoints/ckpt/legacy_epoch=176-step=20886.ckpt"
   audio_max_len: 20
