@@ -4,7 +4,7 @@ import pandas as pd
 import argparse
 from sklearn.model_selection import train_test_split
 
-def split_df(df: pd.DataFrame, dur_df: pd.DataFrame, split_ratios: dict, base_folder: str, random_state: int = 42):
+def split_df(dataframe: pd.DataFrame, dur_df: pd.DataFrame, split_ratios: dict, base_folder: str, random_state: int = 42):
     """
     Splits a dataframe into sets and moves files into corresponding folders.
     Args:
@@ -16,6 +16,9 @@ def split_df(df: pd.DataFrame, dur_df: pd.DataFrame, split_ratios: dict, base_fo
     Returns:
         dict: Dictionary of tuples (dataframe, duration dataframe) for each set.
     """
+    df = dataframe.copy()
+    df.filename = df.filename.apply(lambda x: x.split('/')[-1])
+    
     # Split dataframe
     print(f"Splitting dataframe with {len(df)} rows")
     weak_size = int(len(df) * split_ratios['weak'])
