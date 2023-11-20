@@ -33,11 +33,11 @@ from pytorch_lightning.loggers import TensorBoardLogger
 def resample_data_generate_durations(config_data, test_only=False, evaluation=False):
     if not test_only:
         dsets = [
-            "synth_folder",
-            "synth_val_folder",
+            # "synth_folder",
+            # "synth_val_folder",
             "strong_folder",
-            "weak_folder",
-            "unlabeled_folder",
+            # "weak_folder",
+            # "unlabeled_folder",
             "test_folder",
         ]
     elif not evaluation:
