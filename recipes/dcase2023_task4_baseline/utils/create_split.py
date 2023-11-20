@@ -75,9 +75,9 @@ def main(args):
         'strong': float(args.split_ratios[0]),
         'synth_train': float(args.split_ratios[1]),
         'synth_val': float(args.split_ratios[2]),
-        'weak': float(args.split_ratios[2]),
-        'unlabeled': float(args.split_ratios[3]),
-        'test': float(args.split_ratios[4])
+        'weak': float(args.split_ratios[3]),
+        'unlabeled': float(args.split_ratios[4]),
+        'test': float(args.split_ratios[5])
     }
     split_dfs = split_df(df, dur_df, split_ratios, args.base_folder)
 
