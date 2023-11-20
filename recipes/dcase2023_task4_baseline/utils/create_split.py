@@ -45,9 +45,8 @@ def split_df(dataframe: pd.DataFrame, dur_df: pd.DataFrame, split_ratios: dict, 
 
     # Function to update paths and move files
     def update_paths_and_move_files(df, set_name):
-        new_folder = os.path.join(base_folder, set_name)
-        if not os.path.exists(new_folder):
-            os.makedirs(new_folder)
+        if not os.path.exists(set_name):
+            os.makedirs(set_name)
         df['filename'] = df['filename'].apply(lambda x: os.path.join(set_name, os.path.basename(x)))
         for file in df['filename']:
             src = os.path.join(base_folder, os.path.basename(file))
