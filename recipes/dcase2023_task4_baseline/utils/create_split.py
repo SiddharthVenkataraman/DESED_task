@@ -51,8 +51,7 @@ def split_df(dataframe: pd.DataFrame, dur_df: pd.DataFrame, split_ratios: dict, 
         df['filename'] = df['filename'].apply(lambda x: os.path.join(set_name, os.path.basename(x)))
         for file in df['filename']:
             src = os.path.join(base_folder, os.path.basename(file))
-            dst = os.path.join(base_folder, file)
-            shutil.copy(src, dst)
+            shutil.copy(src, file)
 
     # Update paths and move files for each set
     for set_name, set_df in zip(['strong', 'synth_train', 'synth_val', 'weak', 'unlabeled', 'test'], [strong, synth_train, synth_val, weak, unlabeled, test]):
