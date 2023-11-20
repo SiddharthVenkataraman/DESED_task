@@ -17,9 +17,13 @@ def split_df(df: pd.DataFrame, dur_df:pd.DataFrame, split_ratio: list, random_st
     train, temp = train_test_split(df, train_size=split_ratio[0], random_state=random_state, stratify=df['event_label'])
     val, test = train_test_split(temp, test_size=split_ratio[1], random_state=random_state, stratify=temp['event_label'])
     
+    print(f"Train: {len(train)} files, Val: {len(val)} files, Test: {len(test)} files")
+    
     train_dur = dur_df[dur_df['filename'].isin(train['filename'])]
     val_dur = dur_df[dur_df['filename'].isin(val['filename'])]
     test_dur = dur_df[dur_df['filename'].isin(test['filename'])]
+    
+    print(f"Train: {train_dur['duration'].sum():.2f} s, Val: {val_dur['duration'].sum():.2f} s, Test: {test_dur['duration'].sum():.2f} s")
     return [(train, train_dur), (test, test_dur), (val, val_dur)]
 
 def main(args):
