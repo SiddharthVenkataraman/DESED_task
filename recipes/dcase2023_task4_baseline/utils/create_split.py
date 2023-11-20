@@ -48,7 +48,6 @@ def split_df(dataframe: pd.DataFrame, dur_df: pd.DataFrame, split_ratios: dict, 
         new_folder = os.path.join(base_folder, set_name)
         if not os.path.exists(new_folder):
             os.makedirs(new_folder)
-        df['filename'] = df['filename'].apply(lambda x: os.path.join(set_name, os.path.basename(x)))
         for file in df['filename']:
             src = os.path.join(base_folder, os.path.basename(file))
             dst = os.path.join(new_folder, os.path.basename(file))
@@ -57,12 +56,6 @@ def split_df(dataframe: pd.DataFrame, dur_df: pd.DataFrame, split_ratios: dict, 
     # Update paths and move files for each set
     for set_name, set_df in zip(['strong', 'synth_train', 'synth_val', 'weak', 'unlabeled', 'test'], [strong, synth_train, synth_val, weak, unlabeled, test]):
         update_paths_and_move_files(set_df, set_name)
-        
-    strong_dur.loc[:, 'filename'] = strong_dur.loc[:, 'filename'].apply(lambda x: os.path.join('strong', os.path.basename(x)))
-    synth_train_dur.loc[:, 'filename'] = synth_train_dur.loc[:, 'filename'].apply(lambda x: os.path.join('synth_train', os.path.basename(x)))
-    synth_val_dur.loc[:, 'filename'] = synth_val_dur.loc[:, 'filename'].apply(lambda x: os.path.join('synth_val', os.path.basename(x)))
-    weak_dur.loc[:, 'filename'] = weak_dur.loc[:, 'filename'].apply(lambda x: os.path.join('weak', os.path.basename(x)))
-    unlabeled_dur.loc[:, 'filename'] = unlabeled_dur.loc[:, 'filename'].apply(lambda x: os.path.join('unlabeled', os.path.basename(x)))
     
     return {
         'strong': (strong, strong_dur),
