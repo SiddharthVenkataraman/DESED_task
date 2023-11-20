@@ -34,7 +34,7 @@ data: # change with your paths if different.
   # resampled data will be placed.
   synth_folder: "/srv/shared_data/single_vehicle-20sec_gap15sec/synth"
   synth_folder_44k:  "/srv/shared_data/single_vehicle-20sec_gap15sec/synth"
-  synth_tsv: " "/srv/shared_data/single_vehicle-20sec_gap15sec/placehorlder.tsv"   
+  synth_tsv: "/srv/shared_data/single_vehicle-20sec_gap15sec/placehorlder.tsv"   
   strong_folder: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/"
   strong_folder_44k: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/"
   strong_tsv: "/srv/shared_data/single_vehicle-20sec_gap15sec/train.tsv" 
