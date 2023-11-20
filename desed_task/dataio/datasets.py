@@ -238,7 +238,7 @@ class WeakSet(Dataset):
             if r["filename"] not in examples.keys():
                 examples[r["filename"]] = {
                     "mixture": os.path.join(audio_folder, r["filename"]),
-                    "events": r["event_labels"].split(","),
+                    "events": r["event_label"].split(","),
                 }
 
         self.examples = examples
