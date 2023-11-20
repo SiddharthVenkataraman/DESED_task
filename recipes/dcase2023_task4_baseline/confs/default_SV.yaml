@@ -32,28 +32,28 @@ scaler:
 data: # change with your paths if different.
   # NOTE: if you have data in 44kHz only then synth_folder will be the path where
   # resampled data will be placed.
-  synth_folder: "/srv/shared_data/single_vehicle-20sec_gap15sec/synth"
-  synth_folder_44k:  "/srv/shared_data/single_vehicle-20sec_gap15sec/synth"
-  synth_tsv: "/srv/shared_data/single_vehicle-20sec_gap15sec/placehorlder.tsv"   
+  synth_folder: "/srv/shared_data/single_vehicle-20sec_gap15sec/placeholder/"
+  synth_folder_44k:  "/srv/shared_data/single_vehicle-20sec_gap15sec/placeholder/"
+  synth_tsv: "/srv/shared_data/single_vehicle-20sec_gap15sec/placeholder.tsv"   
   strong_folder: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/"
   strong_folder_44k: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/"
   strong_tsv: "/srv/shared_data/single_vehicle-20sec_gap15sec/train.tsv" 
-  weak_folder: "/srv/shared_data/single_vehicle-20sec_gap15sec/weak/"  
-  weak_folder_44k: "/srv/shared_data/single_vehicle-20sec_gap15sec/weak/"
+  weak_folder: "/srv/shared_data/single_vehicle-20sec_gap15sec/placeholder/"  
+  weak_folder_44k: "/srv/shared_data/single_vehicle-20sec_gap15sec/placeholder/"
   weak_tsv: "/srv/shared_data/single_vehicle-20sec_gap15sec/placeholder.tsv"   
   unlabeled_folder: "/srv/shared_data/single_vehicle-20sec_gap15sec/unlabeled/"
   unlabeled_folder_44k: "/srv/shared_data/single_vehicle-20sec_gap15sec/unlabeled/"
   unlabeled_tsv:  "/srv/shared_data/single_vehicle-20sec_gap15sec/placeholder.tsv"
-  synth_val_folder: null
-  synth_val_folder_44k: null
-  synth_val_tsv: null
-  synth_val_dur: null
+  synth_val_folder: "/srv/shared_data/single_vehicle-20sec_gap15sec/placeholder/"
+  synth_val_folder_44k: "/srv/shared_data/single_vehicle-20sec_gap15sec/placeholder/"
+  synth_val_tsv: "/srv/shared_data/single_vehicle-20sec_gap15sec/placeholder.tsv"
+  synth_val_dur: "/srv/shared_data/single_vehicle-20sec_gap15sec/placeholder.tsv"
   test_folder: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/"
   test_folder_44k: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/"
   test_tsv: "/srv/shared_data/single_vehicle-20sec_gap15sec/test.tsv"
   test_dur: "/srv/shared_data/single_vehicle-20sec_gap15sec/test_dur.tsv"
-  eval_folder: null
-  eval_folder_44k: null
+  eval_folder: "/srv/shared_data/single_vehicle-20sec_gap15sec/placeholder/"
+  eval_folder_44k: "/srv/shared_data/single_vehicle-20sec_gap15sec/placeholder/"
   predict_folder: "/predict_16k"
   predict_folder_44k: "../../data/small_dataset/" ####
   predict_from_checkpoint: "../../recipes/dcase2023_task4_baseline/pre_trained_checkpoints/ckpt/legacy_epoch=176-step=20886.ckpt"
