@@ -37,9 +37,9 @@ def main(args):
     dur_df = pd.read_csv(args.input_dur, sep="\t")
     split_dfs = split_df(df, dur_df, args.split_ratio)
     outputs = [args.output_train, args.output_test, args.output_val]
-    for i, split_df in enumerate(split_dfs):
-        split_df[0].to_csv(outputs[i], sep="\t", index=False)
-        split_df[1].to_csv(outputs[i].replace(".tsv", "_dur.tsv"), sep="\t", index=False)
+    for i, split_tsv in enumerate(split_dfs):
+        split_tsv[0].to_csv(outputs[i], sep="\t", index=False)
+        split_tsv[1].to_csv(outputs[i].replace(".tsv", "_dur.tsv"), sep="\t", index=False)
         print(f"Saved {outputs[i]} and {outputs[i].replace('.tsv', '_dur.tsv')}")        
         
         
