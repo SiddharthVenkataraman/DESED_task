@@ -17,8 +17,11 @@ def split_df(df: pd.DataFrame, dur_df:pd.DataFrame, split_ratio: list, random_st
     csv = df.copy()
     csv.filename = csv.filename.apply(lambda x: x.split("/")[-1])
     print(f"Total: {len(csv)} files")
-    train, temp = train_test_split(csv, train_size=split_ratio[0], random_state=random_state, stratify=df['event_label'])
-    val, test = train_test_split(temp, test_size=split_ratio[1], random_state=random_state, stratify=temp['event_label'])
+    train_size = split_ratio[0] * len(csv)
+    test_size = split_ratio[1] * len(csv)
+    
+    train, temp = train_test_split(csv, train_size=train_size, random_state=random_state, stratify=df['event_label'])
+    val, test = train_test_split(temp, test_size=test_size, random_state=random_state, stratify=temp['event_label'])
     
     print(f"Train: {len(train)} files, Val: {len(val)} files, Test: {len(test)} files")
     
@@ -45,6 +48,6 @@ if __name__ == '__main__':
     parser.add_argument("--o_train", dest="output_train", type=str, required=False, help="Path to the output train tsv file", default="train.tsv")
     parser.add_argument("--o_test", dest="output_test", type=str, required=False, help="Path to the output test tsv file", default="test.tsv")
     parser.add_argument("--o_val", dest="output_val", type=str, required=False, help="Path to the output val tsv file", default="val.tsv")
-    parser.add_argument("--split_ratio", dest="split_ratio", type=float, nargs=2, required=False, help="Ratio to split the dataframe", default=[0.7, 0.1])
+    parser.add_argument("--split_ratio", dest="split_ratio", type=float, nargs=2, required=False, help="Ratio to split the dataframe", default=[0.7, 0.2])
     args = parser.parse_args()
     main(args)
