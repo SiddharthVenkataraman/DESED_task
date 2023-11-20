@@ -16,22 +16,21 @@ def split_df(df: pd.DataFrame, dur_df: pd.DataFrame, split_ratios: dict, base_fo
     Returns:
         dict: Dictionary of tuples (dataframe, duration dataframe) for each set.
     """
-    # Initial split to separate Test Set
-    remaining, test = train_test_split(df, test_size=split_ratios['test'], random_state=random_state)
-
-    # Further splitting for other sets
-    remaining_ratio = 1 - split_ratios['test']
-    strong_ratio = split_ratios['strong'] / remaining_ratio
-    synth_ratio = (split_ratios['synth_train'] + split_ratios['synth_val']) / remaining_ratio
-    weak_ratio = split_ratios['weak'] / remaining_ratio
-
-    strong, remaining = train_test_split(remaining, test_size=1-strong_ratio, random_state=random_state)
-    synth, remaining = train_test_split(remaining, test_size=1-synth_ratio/(1-strong_ratio), random_state=random_state)
-    weak, unlabeled = train_test_split(remaining, test_size=1-weak_ratio/(1-synth_ratio/(1-strong_ratio)), random_state=random_state)
-
-    # Splitting Synth into Synth Train and Synth Val
-    synth_train_ratio = split_ratios['synth_train'] / (split_ratios['synth_train'] + split_ratios['synth_val'])
-    synth_train, synth_val = train_test_split(synth, test_size=1-synth_train_ratio, random_state=random_state)
+    # Split dataframe
+    print(f"Splitting dataframe with {len(df)} rows")
+    weak_size = int(len(df) * split_ratios['weak'])
+    unlabeled_size = int(len(df) * split_ratios['unlabeled'])
+    test_size = int(len(df) * split_ratios['test'])
+    synth_train_size = int(len(df) * split_ratios['synth_train'])
+    synth_val_size = int(len(df) * split_ratios['synth_val'])
+    
+    strong, test = train_test_split(df, test_size=test_size, random_state=random_state)
+    strong, weak = train_test_split(strong, test_size=weak_size, random_state=random_state)
+    strong, unlabeled = train_test_split(strong, test_size=unlabeled_size, random_state=random_state)
+    strong, synth_train = train_test_split(strong, test_size=synth_train_size, random_state=random_state)
+    strong, synth_val = train_test_split(strong, test_size=synth_val_size, random_state=random_state)
+    
+    print(f"Strong: {len(strong)}, Test: {len(test)}, Weak: {len(weak)}, Unlabeled: {len(unlabeled)}, Synth Train: {len(synth_train)}, Synth Val: {len(synth_val)}")
 
     # Function to update paths and move files
     def update_paths_and_move_files(df, set_name):
@@ -42,7 +41,7 @@ def split_df(df: pd.DataFrame, dur_df: pd.DataFrame, split_ratios: dict, base_fo
         for file in df['filename']:
             src = os.path.join(base_folder, os.path.basename(file))
             dst = os.path.join(base_folder, file)
-            shutil.move(src, dst)
+            shutil.copy(src, dst)
 
     # Update paths and move files for each set
     for set_name, set_df in zip(['strong', 'synth_train', 'synth_val', 'weak', 'unlabeled', 'test'], [strong, synth_train, synth_val, weak, unlabeled, test]):
