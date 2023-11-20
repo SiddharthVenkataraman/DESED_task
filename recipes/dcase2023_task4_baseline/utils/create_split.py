@@ -61,11 +61,11 @@ def main(args):
 
     # Split dataframe and move files
     split_ratios = {
-        'strong': args.split_ratios[0],
-        'synth': args.split_ratios[1],
-        'weak': args.split_ratios[2],
-        'unlabeled': args.split_ratios[3],
-        'test': args.split_ratios[4]
+        'strong': float(args.split_ratios[0]),
+        'synth': float(args.split_ratios[1]),
+        'weak': float(args.split_ratios[2]),
+        'unlabeled': float(args.split_ratios[3]),
+        'test': float(args.split_ratios[4])
     }
     split_dfs = split_df(df, dur_df, split_ratios, args.base_folder)
 
