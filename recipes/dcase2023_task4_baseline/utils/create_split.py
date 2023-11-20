@@ -37,6 +37,7 @@ def main(args):
         split_dur_df.to_csv(output_path.replace(".tsv", "_dur.tsv"), sep="\t", index=False)
     
 if __name__ == '__main__':
+    print("Splitting dataframe")
     parser = argparse.ArgumentParser(description="Split a dataframe into train, test and val according to the split ratio [train, test] (val is the rest)")
     parser.add_argument("--i_tsv", dest="input_tsv", type=str, required=True, help="Path to the input tsv file")
     parser.add_argument("--i_dur", dest="input_dur", type=str, required=True, help="Path to the input duration tsv file")
@@ -45,3 +46,4 @@ if __name__ == '__main__':
     parser.add_argument("--o_val", dest="output_val", type=str, required=False, help="Path to the output val tsv file", default="val.tsv")
     parser.add_argument("--split_ratio", dest="split_ratio", type=float, nargs=2, required=False, help="Ratio to split the dataframe", default=[0.7, 0.1])
     args = parser.parse_args()
+    main(args)
