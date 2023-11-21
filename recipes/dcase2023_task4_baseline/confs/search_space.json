@@ -1,8 +1,8 @@
 {
-    "dropout": {"_type": "uniform", "_value": [0.2, 0.8]},
-    "rnn_layers": {"_type": "choice", "_value": [1, 2, 3]},
-    "n_RNN_cell": {"_type": "choice", "_value": [32, 64, 128, 256]},
-    "attention": {"_type": "choice", "_value": [1, 0]},
-    "activation": {"_type": "choice", "_value": [1, 0]},
-    "dropout_recurrent": {"_type": "uniform", "_value": [0, 0.2]}
+    "n_mels": {"_type": "choice", "_value": [32, 64, 128, 256, 512]},
+    "n_filters": {"_type": "choice", "_value": [1024, 2048, 4096]},
+    "hop_length": {"_type": "choice", "_value": [128, 256, 384, 512, 640, 768, 896, 1024]},
+    "n_window": {"_type": "choice", "_value": [256, 512, 1024, 2048, 4096]},
+    "n_RNN_cell": {"_type": "unifchoiceorm", "_value": [32, 64, 128, 256, 512]},
+    "dropout": {"_type": "uniform", "_value": [0, 0.5]}
 }
