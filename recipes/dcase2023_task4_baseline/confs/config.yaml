@@ -1,6 +1,6 @@
 experimentName: dcaseNAS
 searchSpaceFile: search_space.json
-trialCommand: python3 train_sed.py --conf_file confs/default_SV.yaml --gpus 1
+trialCommand: python3 encapsulate_run --command 'python3 train_sed.py --conf_file confs/default_SV.yaml --gpus 1'
 trialCodeDirectory: ../
 trialGpuNumber: 1
 trialConcurrency: 1
