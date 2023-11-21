@@ -3,7 +3,7 @@ import os
 import pandas as pd
 import torch
 import yaml
-
+import nni
 import threading
 
 from local.utils import (
@@ -395,6 +395,26 @@ def prepare_run(argv=None):
     return configs, args, test_model_state_dict, evaluation
 
 if __name__ == "__main__":
+    
+    with open("confs/default_SV.yaml", "r") as f:
+        config = yaml.safe_load(f)
+            
+    # Get the parameters from nni
+    params = nni.get_next_parameter()
+    print(f"Parameters from nni: {params}")
+            
+    # Update the config file with the new parameters
+    for key, value in params.items():
+        for config_key in config["net"].keys():
+            if key == config_key:
+                config["net"][key] = value
+        for config_key in config["feats"].keys():
+            if key == config_key:
+                config["feats"][key] = value
+            
+    # Save the new config file as 'config_nni.yaml'
+    with open("config_nni.yaml", "w") as f:
+        yaml.dump(config, f)                
 
     # prepare run
     configs, args, test_model_state_dict, evaluation = prepare_run()
