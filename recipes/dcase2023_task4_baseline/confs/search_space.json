@@ -1,8 +1,6 @@
 {
-    "n_mels": {"_type": "choice", "_value": [128, 256, 512]},
-    "n_filters": {"_type": "choice", "_value": [1024, 2048, 4096]},
     "hop_length": {"_type": "choice", "_value": [128, 256, 384, 512, 640, 768, 896, 1024]},
     "n_window": {"_type": "choice", "_value": [256, 512, 1024, 2048, 4096]},
-    "n_RNN_cell": {"_type": "choice", "_value": [128, 256, 512]},
+    "n_RNN_cell": {"_type": "choice", "_value": [128, 160, 192, 224, 256]},
     "dropout": {"_type": "uniform", "_value": [0, 0.5]}
 }

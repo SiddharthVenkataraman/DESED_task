@@ -25,11 +25,12 @@ def main(command="python3 train_sed.py --conf_file confs/default_SV.yaml --gpus 
                 if key == config_key:
                     config["feats"][key] = value
                     
-        # Save the new config file
-        with open(config_file, "w") as f:
+        # Save the new config file as 'config_nni.yaml'
+        with open("config_nni.yaml", "w") as f:
             yaml.dump(config, f)
             
         # Update the command
+        command[command.index("--conf_file")+1] = "config_nni.yaml"
         command = " ".join(command)                    
         os.system(command) # training run
     finally:
