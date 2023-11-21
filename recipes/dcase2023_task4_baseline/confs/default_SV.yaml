@@ -3,10 +3,10 @@ training:
   batch_size: [12, 12, 24] # UPDATED [12, 12, 24]
   batch_size_val: 24
   const_max: 2 # max weight used for self supervised loss
-  n_epochs_warmup: 50 # num epochs used for exponential warmup
+  n_epochs_warmup: 30 # num epochs used for exponential warmup
   num_workers: 6 # change according to your cpu
-  n_epochs: 150 # max num epochs
-  early_stop_patience: 50 # Same as number of epochs by default, so no early stopping used
+  n_epochs: 100 # max num epochs
+  early_stop_patience: 30 # Same as number of epochs by default, so no early stopping used
   accumulate_batches: 1
   gradient_clip: 0. # 0 no gradient clipping
   median_window: 7 # length of median filter used to smooth prediction in inference (nb of output frames)
