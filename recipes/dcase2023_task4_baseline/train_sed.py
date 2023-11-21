@@ -413,7 +413,7 @@ if __name__ == "__main__":
                 config["feats"][key] = value
             
     # Save the new config file as 'config_nni.yaml'
-    with open("config_nni.yaml", "w") as f:
+    with open("confs/config_nni.yaml", "w") as f:
         yaml.dump(config, f)                
 
     # prepare run
