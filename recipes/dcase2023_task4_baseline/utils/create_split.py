@@ -74,7 +74,7 @@ def main(args):
         dur_df = pd.read_csv(args.input_dur, sep="\t")
     else: # supose duration has been given and not the csv file
         dur_df = pd.DataFrame()
-        dur_df['filename'] = df['filename']
+        dur_df['filename'] = df['filename'].apply(lambda x: x.split('/')[-1])
         dur_df['duration'] = args.input_dur
 
     # Split dataframe and move files
