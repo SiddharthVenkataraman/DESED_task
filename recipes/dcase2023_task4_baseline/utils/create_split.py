@@ -99,6 +99,7 @@ def main(args):
     split_dfs = split_df(df, dur_df, split_ratios, args.base_folder)
 
     # Save split dataframes
+    os.makedirs(os.path.dirname(args.input_tsv) + "/metadata/", exist_ok=True)
     for set_name, (data_df, dur_df) in split_dfs.items():
         output_file = f"{set_name}.tsv"
         duration_file = f"{set_name}_duration.tsv"
