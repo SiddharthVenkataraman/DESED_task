@@ -7,7 +7,7 @@ from collections import OrderedDict
 
 classes_labels = OrderedDict(
     {
-        "car": 0,
-        "lorry": 1,
+        "left": 0,
+        "right": 1,
     }
 )
