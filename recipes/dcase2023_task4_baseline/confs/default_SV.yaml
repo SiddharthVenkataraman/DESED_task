@@ -1,11 +1,11 @@
 training:
   #batch size: [synth, weak, unlabel]
-  batch_size: [12, 12, 24] # UPDATED [12, 12, 24]
-  batch_size_val: 24
+  batch_size: [12, 12, 12]
+  batch_size_val: 12
   const_max: 2 # max weight used for self supervised loss
-  n_epochs_warmup: 30 # num epochs used for exponential warmup
+  n_epochs_warmup: 20 # num epochs used for exponential warmup
   num_workers: 6 # change according to your cpu
-  n_epochs: 100 # max num epochs
+  n_epochs: 50 # max num epochs
   early_stop_patience: 30 # Same as number of epochs by default, so no early stopping used
   accumulate_batches: 1
   gradient_clip: 0. # 0 no gradient clipping
@@ -69,7 +69,7 @@ feats:
   n_window: 2048
   sample_rate: 44100
   f_min: 0
-  f_max: 8000
+  f_max: 22050
 net:
   dropout: 0.5
   rnn_layers: 2
