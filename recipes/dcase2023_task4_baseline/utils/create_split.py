@@ -19,6 +19,8 @@ def split_df(dataframe: pd.DataFrame, dur_df: pd.DataFrame, split_ratios: dict, 
     df = dataframe.copy()
     df.filename = df.filename.apply(lambda x: x.split('/')[-1])
     
+    filenames = df.filename.unique()
+    
     # Split dataframe
     print(f"Splitting dataframe with {len(df)} rows")
     weak_size = int(len(df) * split_ratios['weak'])
@@ -27,13 +29,20 @@ def split_df(dataframe: pd.DataFrame, dur_df: pd.DataFrame, split_ratios: dict, 
     synth_train_size = int(len(df) * split_ratios['synth_train'])
     synth_val_size = int(len(df) * split_ratios['synth_val'])
     
-    strong, test = train_test_split(df, test_size=test_size, random_state=random_state)
+    strong, test = train_test_split(filenames, test_size=test_size, random_state=random_state)
     strong, weak = train_test_split(strong, test_size=weak_size, random_state=random_state)
     strong, unlabeled = train_test_split(strong, test_size=unlabeled_size, random_state=random_state)
     strong, synth_train = train_test_split(strong, test_size=synth_train_size, random_state=random_state)
     strong, synth_val = train_test_split(strong, test_size=synth_val_size, random_state=random_state)
     
     print(f"Strong: {len(strong)}, Test: {len(test)}, Weak: {len(weak)}, Unlabeled: {len(unlabeled)}, Synth Train: {len(synth_train)}, Synth Val: {len(synth_val)}")
+    
+    strong = df[df.filename.isin(strong)]
+    synth_train = df[df.filename.isin(synth_train)]
+    synth_val = df[df.filename.isin(synth_val)]
+    weak = df[df.filename.isin(weak)]
+    unlabeled = df[df.filename.isin(unlabeled)]
+    test = df[df.filename.isin(test)]
     
     # Creating duration dataframes for each set
     strong_dur = dur_df[dur_df.filename.isin(strong.filename)]
