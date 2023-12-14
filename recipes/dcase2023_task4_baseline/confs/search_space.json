@@ -2,6 +2,5 @@
     "n_mels": {"_type": "choice", "_value": [64, 96, 128, 160, 192, 224, 256]},
     "hop_length": {"_type": "choice", "_value": [1024, 2048, 4096]},
     "n_window": {"_type": "choice", "_value": [256, 512, 1024, 2048, 4096]},
-    "n_RNN_cell": {"_type": "choice", "_value": [128, 160, 192, 224, 256]},
     "dropout": {"_type": "uniform", "_value": [0, 0.5]}
 }
