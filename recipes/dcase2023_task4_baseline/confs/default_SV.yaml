@@ -58,18 +58,18 @@ data: # change with your paths if different.
   predict_folder_44k: "../../data/small_dataset/" ####
   predict_from_checkpoint: "../../recipes/dcase2023_task4_baseline/pre_trained_checkpoints/ckpt/legacy_epoch=176-step=20886.ckpt"
   audio_max_len: 40
-  fs: 48000
+  fs: 16000
   net_subsample: 4
 opt:
   lr: 0.001
 feats:
   n_mels: 128
-  n_filters: 8192
-  hop_length: 4096
-  n_window: 4096
-  sample_rate: 48000
+  n_filters: 4096
+  hop_length: 2048
+  n_window: 2048
+  sample_rate: 16000
   f_min: 0
-  f_max: 24000
+  f_max: 8000
 net:
   dropout: 0.3
   rnn_layers: 2
