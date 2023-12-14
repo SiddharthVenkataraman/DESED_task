@@ -69,7 +69,13 @@ def split_df(dataframe: pd.DataFrame, dur_df: pd.DataFrame, split_ratios: dict, 
 # In the main function, ensure that the split ratios dictionary includes 'synth_train' and 'synth_val' separately.
 def main(args):
     df = pd.read_csv(args.input_tsv, sep="\t")
-    dur_df = pd.read_csv(args.input_dur, sep="\t")
+    
+    if args.input_dur.endswith(".csv"):
+        dur_df = pd.read_csv(args.input_dur, sep="\t")
+    else: # supose duration has been given and not the csv file
+        dur_df = pd.DataFrame()
+        dur_df['filename'] = df['filename']
+        dur_df['duration'] = args.input_dur
 
     # Split dataframe and move files
     split_ratios = {

@@ -32,33 +32,33 @@ scaler:
 data: # change with your paths if different.
   # NOTE: if you have data in 44kHz only then synth_folder will be the path where
   # resampled data will be placed.
-  synth_folder: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/synth_train/"
-  synth_folder_44k: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/synth_train/"
-  synth_tsv: "/srv/shared_data/single_vehicle-20sec_gap15sec/metadata/synth_train.tsv"
-  strong_folder: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/strong/"
-  strong_folder_44k: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/strong/"
-  strong_tsv: "/srv/shared_data/single_vehicle-20sec_gap15sec/metadata/strong.tsv"
-  weak_folder: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/weak/"
-  weak_folder_44k: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/weak/"
-  weak_tsv: "/srv/shared_data/single_vehicle-20sec_gap15sec/metadata/weak.tsv"
-  unlabeled_folder: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/unlabeled/"
-  unlabeled_folder_44k: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/unlabeled/"
-  unlabeled_tsv:  "/srv/shared_data/single_vehicle-20sec_gap15sec/metadata/unlabeled.tsv"
-  synth_val_folder: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/synth_val/"
-  synth_val_folder_44k: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/synth_val/"
-  synth_val_tsv: "/srv/shared_data/single_vehicle-20sec_gap15sec/metadata/synth_val.tsv"
-  synth_val_dur: "/srv/shared_data/single_vehicle-20sec_gap15sec/metadata/synth_val_duration.tsv"
-  test_folder: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/test/"
-  test_folder_44k: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/test/"
-  test_tsv: "/srv/shared_data/single_vehicle-20sec_gap15sec/metadata/test.tsv"
-  test_dur: "/srv/shared_data/single_vehicle-20sec_gap15sec/metadata/test_duration.tsv"
-  eval_folder: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/eval/"
-  eval_folder_44k: "/srv/shared_data/single_vehicle-20sec_gap15sec/24_bits/eval/"
+  synth_folder: "/srv/shared_data/multiple_single_events/24_bits/synth_train/"
+  synth_folder_44k: "/srv/shared_data/multiple_single_events/24_bits/synth_train/"
+  synth_tsv: "/srv/shared_data/multiple_single_events/metadata/synth_train.tsv"
+  strong_folder: "/srv/shared_data/multiple_single_events/24_bits/strong/"
+  strong_folder_44k: "/srv/shared_data/multiple_single_events/24_bits/strong/"
+  strong_tsv: "/srv/shared_data/multiple_single_events/metadata/strong.tsv"
+  weak_folder: "/srv/shared_data/multiple_single_events/24_bits/weak/"
+  weak_folder_44k: "/srv/shared_data/multiple_single_events/24_bits/weak/"
+  weak_tsv: "/srv/shared_data/multiple_single_events/metadata/weak.tsv"
+  unlabeled_folder: "/srv/shared_data/multiple_single_events/24_bits/unlabeled/"
+  unlabeled_folder_44k: "/srv/shared_data/multiple_single_events/24_bits/unlabeled/"
+  unlabeled_tsv:  "/srv/shared_data/multiple_single_events/metadata/unlabeled.tsv"
+  synth_val_folder: "/srv/shared_data/multiple_single_events/24_bits/synth_val/"
+  synth_val_folder_44k: "/srv/shared_data/multiple_single_events/24_bits/synth_val/"
+  synth_val_tsv: "/srv/shared_data/multiple_single_events/metadata/synth_val.tsv"
+  synth_val_dur: "/srv/shared_data/multiple_single_events/metadata/synth_val_duration.tsv"
+  test_folder: "/srv/shared_data/multiple_single_events/24_bits/test/"
+  test_folder_44k: "/srv/shared_data/multiple_single_events/24_bits/test/"
+  test_tsv: "/srv/shared_data/multiple_single_events/metadata/test.tsv"
+  test_dur: "/srv/shared_data/multiple_single_events/metadata/test_duration.tsv"
+  eval_folder: "/srv/shared_data/multiple_single_events/24_bits/eval/"
+  eval_folder_44k: "/srv/shared_data/multiple_single_events/24_bits/eval/"
   predict_folder: "/predict_16k"
   predict_folder_44k: "../../data/small_dataset/" ####
   predict_from_checkpoint: "../../recipes/dcase2023_task4_baseline/pre_trained_checkpoints/ckpt/legacy_epoch=176-step=20886.ckpt"
   audio_max_len: 20
-  fs: 16000
+  fs: 44100
   net_subsample: 4
 opt:
   lr: 0.001
@@ -67,7 +67,7 @@ feats:
   n_filters: 4096
   hop_length: 256
   n_window: 2048
-  sample_rate: 16000
+  sample_rate: 44100
   f_min: 0
   f_max: 8000
 net:
