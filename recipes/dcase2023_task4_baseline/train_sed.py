@@ -103,14 +103,16 @@ def single_run(
             devtest_df,
             encoder,
             return_filename=True,
-            pad_to=config["data"]["audio_max_len"]
+            pad_to=config["data"]["audio_max_len"],
+            fs=config["data"]["fs"],
         )
     else:
         devtest_dataset = UnlabeledSet(
             config["data"]["eval_folder"],
             encoder,
             pad_to=None,
-            return_filename=True
+            return_filename=True,
+            fs=config["data"]["fs"],
         )
 
     test_dataset = devtest_dataset
@@ -131,6 +133,7 @@ def single_run(
             synth_df,
             encoder,
             pad_to=config["data"]["audio_max_len"],
+            fs=config["data"]["fs"],
         )
 
         if strong_real:
@@ -140,6 +143,7 @@ def single_run(
                 strong_df,
                 encoder,
                 pad_to=config["data"]["audio_max_len"],
+                fs=config["data"]["fs"],
             )
         
 
@@ -155,6 +159,7 @@ def single_run(
             train_weak_df,
             encoder,
             pad_to=config["data"]["audio_max_len"],
+            fs=config["data"]["fs"],
         )
 
         unlabeled_set = UnlabeledSet(
@@ -162,6 +167,7 @@ def single_run(
             encoder,
             tsv_entries=config["data"]["unlabeled_tsv"],
             pad_to=config["data"]["audio_max_len"],
+            fs=config["data"]["fs"],
         )
 
         synth_df_val = pd.read_csv(config["data"]["synth_val_tsv"], sep="\t")
@@ -171,6 +177,7 @@ def single_run(
             encoder,
             return_filename=True,
             pad_to=config["data"]["audio_max_len"],
+            fs=config["data"]["fs"],
         )
 
         weak_val = WeakSet(
@@ -179,6 +186,7 @@ def single_run(
             encoder,
             pad_to=config["data"]["audio_max_len"],
             return_filename=True,
+            fs=config["data"]["fs"],
         )
 
         if strong_real:
