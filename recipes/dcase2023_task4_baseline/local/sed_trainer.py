@@ -17,7 +17,7 @@ from desed_task.utils.scaler import TorchScaler
 import numpy as np
 import torchmetrics
 
-# import nni
+import nni
 
 from .utils import (
     batched_decode_preds,
@@ -582,7 +582,7 @@ class SEDTask4(pl.LightningModule):
             "synth_student_event_macro": synth_student_event_macro,
             "synth_teacher_event_macro": synth_teacher_event_macro,
         }
-        # nni.report_intermediate_result(result)
+        nni.report_intermediate_result(result)
 
         self.log("val/obj_metric", obj_metric, prog_bar=True)
         self.log("val/weak/student/macro_F1", weak_student_f1_macro)
@@ -994,7 +994,7 @@ class SEDTask4(pl.LightningModule):
                 "event_macro_teacher": event_macro_teacher,
                 "intersection_f1_macro_teacher": intersection_f1_macro_teacher,
             }
-            # nni.report_final_result(final_result)
+            nni.report_final_result(final_result)
 
         if self.logger is not None:
             self.logger.log_metrics(results)
