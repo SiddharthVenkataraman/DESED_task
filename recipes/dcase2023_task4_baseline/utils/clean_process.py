@@ -17,8 +17,10 @@ def kill_target_process(target_command):
                 print(f"Found target process with PID: {proc.info['pid']}")
 
                 # Kill the process
-                os.kill(proc.info['pid'], signal.SIGTERM)
-                print(f"Process {proc.info['pid']} terminated.")
+                os.kill(proc.info['pid'], signal.SIGKILL)
+                # verify that it is dead
+                assert proc.status() == psutil.STATUS_ZOMBIE
+                print(f"Killed process with PID: {proc.info['pid']}")
 
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass  # Ignore processes that no longer exist or can't be accessed

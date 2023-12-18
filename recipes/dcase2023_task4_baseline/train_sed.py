@@ -427,14 +427,5 @@ if __name__ == "__main__":
     # prepare run
     configs, args, test_model_state_dict, evaluation = prepare_run()
     
-    # launch run in a thread to deallocate memory after run
-    t = threading.Thread(target=single_run, args=(configs, args.log_dir, args.gpus, args.strong_real, args.resume_from_checkpoint, test_model_state_dict, args.fast_dev_run, evaluation))
-    t.start()
-    t.join()
-    
-    # Kill the process if it is still alive
-    if t.is_alive():
-        os.kill(os.getpid(), 9)
-    
-    # single_run(configs, args.log_dir, args.gpus, args.strong_real, args.resume_from_checkpoint, test_model_state_dict, args.fast_dev_run, evaluation)
+    single_run(configs, args.log_dir, args.gpus, args.strong_real, args.resume_from_checkpoint, test_model_state_dict, args.fast_dev_run, evaluation)
     

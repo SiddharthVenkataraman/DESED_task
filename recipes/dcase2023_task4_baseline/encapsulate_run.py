@@ -2,7 +2,6 @@
 
 import argparse
 import os
-import yaml
 
 def main(command="python3 train_sed.py --conf_file confs/config_nni.yaml --gpus 1"):
     try:
